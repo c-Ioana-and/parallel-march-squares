@@ -1,3 +1,8 @@
-# tema1
+# Parallel marching squares
 
-Tema 1 APD
+## Goal
+- to familiarize myself with POSIX Threads
+
+## Implementation
+
+TODO
