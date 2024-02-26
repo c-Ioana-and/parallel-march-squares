@@ -1,0 +1,4 @@
+build: tema1_par.c
+	gcc tema1_par.c par_func.c helpers.c -o tema1_par -lm -lpthread -Wall -Wextra -g
+clean:
+	rm -rf tema1 tema1_par

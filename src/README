@@ -1,0 +1,26 @@
+----------------------- TEMA 1 APD, Cepoiu Ioana-Andreea -----------------------
+
+    În cadrul acestei teme am paralelizat funcțiile rescale_image, sample_grid
+și march, folosind thread-uri din biblioteca pthread.h, sincronizate cu bariere.
+Pentru a putea diferenția mai ușor funcțiile modificate de mine și cele din codul
+sursă, am ales să rescriu funcțiile în fișierele par_func.c și par_helpers.h.
+
+    În header-ul par_helpers.h, am definit o structură ajutătoare (thread_args)
+pentru a trimite argumentele necesare pentru rularea thread-urilor (basically datele
+necesare pentru a rula funcțiile paralelizate), precum și antetele funcțiilor
+modificate (sau doar mutate, în cazul lui update_image), iar în par_func.c am
+definit funcțiile modificate.
+    
+    Funcțiile adăugate în par_func.c sunt:
+- init_grid, care alocă memorie pentru grid. Am ales să creez o funcție separată
+în acest sens pentru a nu aloca memorie de mai multe ori (din cauza thread-urilor);
+- sample_grid, în care thread-urile calculează valorile pentru grid;
+- update_image, nemodificată, dar mutată din tema1_par.c;
+- march, în care thread-urile calculează culorile pixelilor din imagine;
+- init_image, care verifică dacă are sens să aloc memorie pentru o nouă imagine
+redimensionată. Dacă nu, imaginea rămâne neschimbată;
+- rescale_image, în care thread-urile redimensionează imaginea, matricea fiind
+împărțită în blocuri egale în funcție de numărul de thread-uri;
+- thread_business, care este funcția executată de fiecare thread. Aceasta urmează
+etapele algoritmului, având grijă să sincronizeze thread-urile cu bariere pentru
+a modifica datele în ordinea corectă.
